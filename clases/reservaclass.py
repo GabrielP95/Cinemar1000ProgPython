@@ -2,8 +2,8 @@ from basedatos.reserva import *
 
 
 class Reserva:
-    def __init__(self, id, idpersona, idsala, precio):
-        self.__id = id
+    def __init__(self, idpersona, idsala, precio):
+        self.__id = None
         self.__idpersona = idpersona
         self.__idsala = idsala
         self.__precio = precio
@@ -46,6 +46,10 @@ class Reserva:
 
     def crear(self):
         insertar_reserva(self.__idpersona, self.__idsala, self.__precio)
+
+    def modificar(self, id_reserva):
+        modificar_persona(id_reserva, self.__idpersona,
+                          self.__idsala, self.__precio)
 
     def modificar_persona(self):
         modificar_personares(self.__id, self.__idpersona)

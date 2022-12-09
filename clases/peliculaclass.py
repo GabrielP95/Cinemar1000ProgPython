@@ -2,8 +2,8 @@ from basedatos.pelicula import *
 
 
 class Pelicula:
-    def __init__(self, id, nombre, categoria, descripcion):
-        self.__id = id
+    def __init__(self, nombre, categoria, descripcion):
+        self.__id = None
         self.__nombre = nombre
         self.__categoria = categoria
         self.__descripcion = descripcion
@@ -37,10 +37,14 @@ class Pelicula:
         self.__descripcion = nuevadescripcion
 
     def crear(self):
-        insertar_pelicula(self.__nombre,self.__categoria,self.__descripcion)
+        crearPeliculas()
 
     def insertarpeli(self):
         insertar_pelicula(self.__nombre, self.__categoria, self.__descripcion)
+
+    def modificar(self, id_peli):
+        modificar_peli(id_peli, self.__nombre,
+                       self.__categoria, self.__descripcion)
 
     def modificar_nombre(self):
         modificar_nombrepeli(self.__id, self.__nombre)
@@ -50,6 +54,3 @@ class Pelicula:
 
     def modificardesc(self):
         modificar_nombrepeli(self.__id, self.__descripcion)
-
-    def borrar(self):
-        borrar_peli(self.__id)

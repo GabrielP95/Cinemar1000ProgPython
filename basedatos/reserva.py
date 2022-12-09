@@ -6,10 +6,10 @@ def crearReservas():
     cursor = conn.cursor()
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS reservas(
-            id_reserva INTERGER PRIMARY KEY AUTOINCREMENT,
-            id_persona INTERGER,
-            id_sala INTERGER,
-            precio INTERGER,
+            id_reserva INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_persona INTEGER,
+            id_sala INTEGER,
+            precio INTEGER,
             FOREIGN KEY (id_persona) REFERENCES personas (id_persona),
             FOREIGN KEY (id_sala) REFERENCES salas (id_salas)
         )"""
@@ -23,6 +23,16 @@ def insertar_reserva(id_persona, id_sala, precio):
     cursor = conn.cursor()
     cursor.execute(
         f"""INSERT INTO reservas VALUES(NULL,{id_persona},{id_sala},{precio})"""
+    )
+    conn.commit()
+    conn.close()
+
+
+def modificar_persona(id_reserva, id_persona, id_sala, precio):
+    conn = sql.connect("CinemarPlaza.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        f"""UPDATE reservas SET id_persona={id_persona}, id_sala={id_sala}, precio={precio} WHERE id_reserva={id_reserva}"""
     )
     conn.commit()
     conn.close()
@@ -73,9 +83,8 @@ def traer_reservas():
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM reservas""")
     reservas = cursor.fetchall()
-    for reserva in reservas:
-        print(f"Reserva:{reserva}\n")
     conn.close()
+    return reservas
 
 
 def traer_unareserva(id_reserva):
@@ -85,3 +94,6 @@ def traer_unareserva(id_reserva):
     reserva = cursor.fetchone()
     print(f"Reserva:{reserva}\n")
     conn.close()
+
+
+crearReservas()

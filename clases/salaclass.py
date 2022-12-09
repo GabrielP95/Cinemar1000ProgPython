@@ -2,8 +2,8 @@ from basedatos.sala import *
 
 
 class Sala:
-    def __init__(self, id, idpeli, tipo, capacidad):
-        self.__id = id
+    def __init__(self, idpeli, tipo, capacidad):
+        self.__id = None
         self.__idpeli = idpeli
         self.__tipo = tipo
         self.__capacidad = capacidad
@@ -38,6 +38,9 @@ class Sala:
 
     def crear(self):
         insertar_sala(self.__idpeli, self.__tipo, self.__capacidad)
+
+    def modificar(self, id_sala):
+        modificar_sala(id_sala, self.__idpeli, self.__tipo, self.__capacidad)
 
     def modificar_peli(self):
         modificar_pelisala(self.__id, self.__idpeli)

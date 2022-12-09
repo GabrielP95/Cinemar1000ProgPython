@@ -2,8 +2,8 @@ from basedatos.persona import *
 
 
 class Persona:
-    def __init__(self, id, nombre, apellido, usuario, contraseña, tipo, tarjeta):
-        self.__id = id
+    def __init__(self, nombre, apellido, usuario, contraseña, tipo, tarjeta):
+        self.__id = None
         self.__nombre = nombre
         self.__apellido = apellido
         self.__usuario = usuario
@@ -63,8 +63,13 @@ class Persona:
     def tarjeta(self, bool):
         self.__tarjeta = bool
 
-    def crear(self):
-        insertar_persona(self.__nombre, self.__apellido,self.__usuario,self.__contraseña,self.__tipo,self.__tarjeta)
+    def insertarpersona(self):
+        insertar_persona(self.__nombre, self.__apellido, self.__usuario,
+                         self.__contraseña, self.__tipo, self.__tarjeta)
+
+    def modificar(self, id_persona):
+        modificar_persona(id_persona, self.__nombre,
+                          self.__apellido, self.__usuario, self.__contraseña, self.__tipo, self.__tarjeta)
 
     def modificar_usuario(self):
         modificar_usuarioper(self.__id, self.__nombre)

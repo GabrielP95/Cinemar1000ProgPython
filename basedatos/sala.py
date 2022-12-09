@@ -6,10 +6,10 @@ def crearSalas():
     cursor = conn.cursor()
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS salas(
-            id_sala INTERGER PRIMARY KEY AUTOINCREMENT,
-            id_pelicula INTERGER,
+            id_sala INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_pelicula INTEGER,
             tipo TEXT,
-            capacidad INTERGER,
+            capacidad INTEGER,
             FOREIGN KEY (id_pelicula) REFERENCES peliculas (id_peliculas)
         )"""
     )
@@ -21,7 +21,17 @@ def insertar_sala(id_pelicula, tipo, capacidad):
     conn = sql.connect("CinemarPlaza.db")
     cursor = conn.cursor()
     cursor.execute(
-        f"""INSERT INTO salas VALUES(NULL,{id_pelicula},{tipo},{capacidad})"""
+        f"""INSERT INTO salas VALUES(NULL,{id_pelicula},'{tipo}',{capacidad})"""
+    )
+    conn.commit()
+    conn.close()
+
+
+def modificar_sala(id_sala, id_pelicula, tipo, capacidad):
+    conn = sql.connect("CinemarPlaza.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        f"""UPDATE salas SET id_pelicula={id_pelicula}, tipo='{tipo}', capacidad={capacidad} WHERE id_sala={id_sala}"""
     )
     conn.commit()
     conn.close()
@@ -72,9 +82,8 @@ def traer_salas():
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM salas""")
     salas = cursor.fetchall()
-    for sala in salas:
-        print(f"Sala:{sala}\n")
     conn.close()
+    return salas
 
 
 def traer_unasala(id_sala):
@@ -84,3 +93,6 @@ def traer_unasala(id_sala):
     sala = cursor.fetchone()
     print(f"Sala:{sala}\n")
     conn.close()
+
+
+crearSalas()
